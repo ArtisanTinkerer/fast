@@ -1,5 +1,7 @@
+import asyncio
+
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from enum import Enum
 
 app = FastAPI()
@@ -57,6 +59,22 @@ async def read_item(item_id: str, q: str | None = None):
     return {"item_id": item_id}
 
 # query parameter type conversion
+
+
+# Fast API book
+@app.get("/hi/{who}")
+def greet(who):
+    return f'Hello {who}'
+
+@app.post("/hi")
+def greet(who:str = Body(embed=True)): #just mean expect key/value pair
+    return f'Hello {who}'
+
+
+@app.get("/hia")
+async def greet():
+    await asyncio.sleep(1) # fake a function call - server can now accept other requests
+    return "Hello? World?"
 
 
 
