@@ -47,8 +47,9 @@ async def get_model(model_name: ModelName):
 
 # query params if they are not part of the path parameters
 # query params can be optional and have defaults
+#Create by adding other function parameters which are not in the path:
 @app.get("/items/")
-async def read_item(skip: int = 0, limit: int = 10):
+async def read_item(skip: int = 0, limit: int = 10): # this will convert them to ints - with defaults here
     return fake_items_db[skip : skip + limit]
 
 
@@ -60,21 +61,27 @@ async def read_item(item_id: str, q: str | None = None):
 
 # query parameter type conversion
 
+# can declare bool types and they will be converted
+@app.get("/itemsbool/{item_id}")
+async def read_item(item_id: str, q: str | None = None, short: bool = False):
+    item = {"item_id": item_id}
+    if q:
+        item.update({"q": q})
+    if not short:
+        item.update(
+            {"description": "This is an amazing item that has a long description"}
+        )
+    return item
 
-# Fast API book
-@app.get("/hi/{who}")
-def greet(who):
-    return f'Hello {who}'
+# required query parameters - just don't set a default
+@app.get("/itemsreq/{item_id}")
+async def read_user_item(item_id: str, needy: str):
+    item = {"item_id": item_id, "needy": needy}
+    return item
 
-@app.post("/hi")
-def greet(who:str = Body(embed=True)): #just mean expect key/value pair
-    return f'Hello {who}'
+# Request body:
+#/https://fastapi.tiangolo.com/tutorial/body/
 
-
-@app.get("/hia")
-async def greet():
-    await asyncio.sleep(1) # fake a function call - server can now accept other requests
-    return "Hello? World?"
 
 
 

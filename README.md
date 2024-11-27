@@ -6,7 +6,11 @@ Working through:
 [Official Tutorial](https://fastapi.tiangolo.com/tutorial/first-steps/#check-it)
 
 
-[Currently here](https://fastapi.tiangolo.com/tutorial/query-params/#query-parameter-type-conversion)
+[Currently here](https://fastapi.tiangolo.com/tutorial/body/)
+
+
+## Next?
+Advanced user guide?
 
 Also working through:
 FastAPI
@@ -89,6 +93,13 @@ Field(...,min_length=2) means required and no default
 eg 
 
 ## Chapter 6 Dependencies
+
+
+Dependency Injection - just like Laravel!
+### In FastAPI 
+* needs to be callable
+* 
+
 
 
 ##Todo
